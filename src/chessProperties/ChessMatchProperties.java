@@ -1,6 +1,9 @@
 package chessProperties;
 
 import boardGameProperties.Board;
+import boardGameProperties.Position;
+import chessPiecesProperties.King;
+import chessPiecesProperties.Rook;
 
 public class ChessMatchProperties {
 
@@ -9,6 +12,7 @@ public class ChessMatchProperties {
 	public ChessMatchProperties() 
 	{
 		board = new Board(8,8);
+		initialSetup();
 		
 	}
 	
@@ -22,6 +26,13 @@ public class ChessMatchProperties {
 		}
 	
 		return mat;
+	}
+	
+	private void initialSetup()
+	{
+		board.placeAPiece(new Rook(board,Color.WHITE), new Position(2,1));
+		board.placeAPiece(new King(board,Color.BLACK), new Position(0,4));
+		board.placeAPiece(new King(board,Color.WHITE), new Position(7,4));
 	}
 	
 }
