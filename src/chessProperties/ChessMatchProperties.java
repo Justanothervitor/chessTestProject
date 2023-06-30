@@ -1,6 +1,8 @@
 package chessProperties;
 
 import boardGameProperties.Board;
+import boardGameProperties.Piece;
+import boardGameProperties.Position;
 import chessPiecesProperties.King;
 import chessPiecesProperties.Rook;
 
@@ -26,6 +28,32 @@ public class ChessMatchProperties {
 	
 		return mat;
 	}
+	
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition)
+	{
+		Position source = sourcePosition.newPosition();
+		Position target = targetPosition.newPosition();
+		validateSourcePosition(source);
+		Piece capturedPiece = makeMove(source,target);
+		return (ChessPiece)capturedPiece;
+	}
+	
+	private Piece makeMove (Position source, Position target)
+	{
+		Piece p = board.removeAPiece(source);
+		Piece capturedPiece = board.removeAPiece(target);
+		board.placeAPiece(p,target);
+		return capturedPiece;
+	}
+	
+	private void validateSourcePosition (Position position)
+	{
+		if(!board.thereIsAPiece(position))
+		{
+			throw new ChessException("There is no piece on source position");
+		}
+	}
+
 	
 	private void placeNewPiece(char column, int row, ChessPiece piece)
 	{
